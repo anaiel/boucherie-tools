@@ -11,7 +11,7 @@ export async function load({ params, parent }) {
 	const { trainingsPromise, trainingsForSelectPromise } = await parent();
 	if (!trainingId) {
 		const trainingsForSelect = await trainingsForSelectPromise;
-		redirect(307, `/${trainingsForSelect[0].id}`);
+		redirect(307, `training-formatter/${trainingsForSelect[0].id}`);
 	}
 	return {
 		formattedTrainingPromise: trainingsPromise.then(async (trainings) => {

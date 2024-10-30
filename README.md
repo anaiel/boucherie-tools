@@ -1,6 +1,6 @@
-# format-training-for-discord
+# boucherie-tools
 
-App using the Notion API to translate a Notion database (containing the content of my roller derby league's training program) into Discord copy-pastable text (to share with my teammates).
+App to centralise tools created for my roller derby league.
 
 Bootstrapped with [Vite](https://vite.dev/)/[SvelteKit](https://svelte.dev/)
 
