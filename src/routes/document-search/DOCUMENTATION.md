@@ -87,7 +87,7 @@ Problème restant à résoudre :
 
 ### Fogg Behavior Model
 
-> “Behavior happens when Motivation, Ability, and a Prompt come together at the same time. When a behavior does not occur, at least one of those three elements is missing.”
+> Behavior happens when Motivation, Ability, and a Prompt come together at the same time. When a behavior does not occur, at least one of those three elements is missing.
 
 [Source](https://behaviormodel.org/)
 
@@ -97,3 +97,51 @@ Problème restant à résoudre :
 
 Ce modèle ne semble pas être très pertinent comme point de départ de l'exploration actuelle car il semble plutôt permettre de diagnostique un comportement/une absence de comportement. Ici nous avons une multitude de problèmes, mais nous souhaitons plutôt encourager un nouvel usage, changer un comportement. Il s'agit moins de diagnostiquer chaque comportement non souhaitable vis à vis des documents que de proposer un outil qui permet d'influencer efficacement les comportements.
 Peut-être que ce modèle sera plus pertinent pour évaluer pour chaque persona si la solution finale permet de réunion les 3 conditions.
+
+### COM-B Model for behaviour change
+
+> The COM-B model is a behavior change framework that proposes three necessary components for any behavior (B) to occur. Through assessing capability (C), opportunity (O), and motivation (M), leaders, policymakers, and behavioral scientists can understand why a specific behavior occurs and how to create targeted interventions that lead to effective change.
+
+[Source](https://thedecisionlab.com/reference-guide/organizational-behavior/the-com-b-model-for-behavior-change?utm_source=pocket_saves)
+
+- **Capability** :
+  - **Physical** : N/A
+  - **Psychological** :
+    - manque de connaissance des documents existants
+    - manque de connaissance de la feature de recherche (dans le drive, dans discord)
+    - charge cognitive pour créer un document (où ? quel drive, quel dossier ?)
+    - charge cognitive pour partager un document (quel channel ?)
+    - réticence à maintenir un document : sentiment de légitimité, malaisance avec la suite drive (édition, suggestion, commentaire)
+- **Opportunity** :
+  - **Social** :
+    - Quand on parle d'un document en groupe, physiquement, on a rarement le lien sous la main et le trouver n'est pas aisé
+    - Avantage des vidéos "1 jour 1 tips" lors du recrutement pour découvrir les documents importants, mais au delà de ça pas de prompt pour la découverte des documents
+  - **Physical** : N/A
+- **Motivation** :
+  - **Automatic** :
+    - Pas d'outil qui encourage la routine, pas de rappel, pas d'habitudes
+    - La difficulté répétée à trouver les documents crée une habitude de découragement
+    - C'est souvent les mêmes personnes qui pointent les documents, donc cela crée une habitude de se reposer sur elleux comme base de connaissance (alors que ces personnes se considèrent plutôt comme des personnes qui savent chercher, pas de connaissance a priori)
+  - **Reflective** :
+    - Il y a un bon sens du devoir chez la majorité des membres qui fait que les gens cherchent majoritairement à bien remplir les documents
+
+1. **Stage 1** :
+   a. **Define the problem in behavioral terms** : Les membres de la Boucherie ont la motivation pour échanger sur divers sujets (organisation, stratégie sportive, extra-associatif, etc.). La méthode privilégiée est l'utilisation de documents, mais on voit se répéter des comportements qui montrent une forme d'échec vis à vis de ces documents : difficultés à les trouver quand on le souhaite, méconnaissance des documents existants, création de nouveaux documents qui existent déjà, difficulté d'utilisation des documents existants, obsolescence de documents perdus qui finissent par ne plus être alimentés, etc.
+   b. **Select the target behavior** : Les membres devraient avoir de la facilité à échanger sur les documents et la participation à la vie de ces documents devrait être agréable et valorisée. Les documents devraient évoluer vers une plus grande adaptation pour accomplir la tâche pour laquelle ils sont créés.
+
+Je m'arrête là car j'ai encore l'impression de prendre le problème à l'envers. Mon idée part plutôt d'une solution, et il faudrait s'assurer que la solution a un impact en terme de behavior change et aussi voir comment ce framework permet d'inspirer de nouvelles idées.
+
+### Enoncé de l'objectif
+
+L'objectif est de valoriser la création de documents par et pour les membres de l'association, afin de favoriser leur adoption, leur partage et leur utilisation. Le but est d'encourager le plaisir et la fierté qu'ils nous apportent en s'assurant qu'ils sont faciles d'accès, connus, et entretenus par la communauté.
+
+### Personas des membres
+
+- **Nouvelle recrue**
+- **Transfert**
+- **Membre impliqué dans un pôle**
+- **Membre lambda**
+- **Membre à l'aise avec la technologie**
+- **Membre créatif.ve**
+
+### Typologies de documents
