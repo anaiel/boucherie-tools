@@ -1,5 +1,5 @@
-import { formatTraining } from '$lib/format';
-import notion from '$lib/notion-client';
+import { formatTraining } from '$lib/training-formatter/format';
+import notion from '$lib/training-formatter/notion-client';
 import type {
 	ListBlockChildrenResponse,
 	QueryDatabaseResponse

@@ -5,7 +5,7 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 ## Features
 
 - [x] Clicker sur un track pour ajouter les endroits de passage d'un.e jammeur.se
-- [ ] Restaurer la session précédente
+- [x] Restaurer la session précédente
 - [ ] Supprimer un point ajouté
 - [ ] Effacer tous les points
 - [ ] Exporter sous format image

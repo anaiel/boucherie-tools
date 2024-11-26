@@ -1,19 +1,22 @@
 <script lang="ts">
-	export let escapes: { x: number; y: number }[] = [];
+	import { JammerEscapeTracker } from '$lib/jammer-heatmap/jammer-escapes-tracker';
+	import { onMount } from 'svelte';
+	import Track from './Track.svelte';
 
-	function addEscape(e: MouseEvent) {
-		escapes = [...escapes, { x: e.clientX, y: e.clientY }];
-	}
+	export let escapesTracker = new JammerEscapeTracker();
+	onMount(() => {
+		escapesTracker.init();
+	});
+	$: escapes = escapesTracker.escapes;
+	const clickHandler = (e: MouseEvent) => {
+		escapesTracker.addEscape({ x: e.clientX, y: e.clientY });
+	};
 </script>
 
-<img
-	alt="Roller derby track layout. Click on the different parts of the track to show where the jammer escaped."
-	src="track.svg"
-	on:click={addEscape}
-/>
+<Track on:click={clickHandler} />
 
-{#each escapes as escape}
-	<div class="escape" style="left:{escape.x}px;top:{escape.y}px;" />
+{#each $escapes as { x, y }}
+	<div class="escape" style="left:{x}px;top:{y}px;" />
 {/each}
 
 <style>

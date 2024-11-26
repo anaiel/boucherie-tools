@@ -2,7 +2,7 @@ import type {
 	ListBlockChildrenResponse,
 	PageObjectResponse
 } from '@notionhq/client/build/src/api-endpoints';
-import notion from '$lib/notion-client';
+import notion from '$lib/training-formatter/notion-client';
 import type { Exercise } from './exercise';
 
 export async function parseDefaultExerciseTemplate(
