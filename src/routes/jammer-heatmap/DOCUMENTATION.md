@@ -6,8 +6,10 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 
 - [x] Clicker sur un track pour ajouter les endroits de passage d'un.e jammeur.se
 - [x] Restaurer la session précédente
-- [ ] Supprimer un point ajouté
-- [ ] Effacer tous les points
+- [x] Supprimer un point ajouté
+- [x] Effacer tous les points
+- [ ] Gérer la réactivité de l'image
 - [ ] Exporter sous format image
 - [ ] Sélectionner un.e jammeur.se
 - [ ] Filtrer les points par jammeur.se
+- [ ] Enregistrer/restaurer une session
