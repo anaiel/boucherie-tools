@@ -1,30 +1,49 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import Track from './Track.svelte';
-	import { JammerPassTracker, type Coordinate } from '../_utilities/jammer-passes-tracker';
+	import { JammerPassTracker } from '../_utilities/jammer-passes-tracker';
+	import type { Coordinate, RelativeCoordinate } from '../_utilities/types';
+	import { Encoder } from '../_utilities/encoder';
+	import { writable } from 'svelte/store';
 
-	const passesTracker = getContext<JammerPassTracker>('passesTracker');
+	let trackElement: HTMLImageElement;
+	let encoder = writable<Encoder | undefined>(undefined);
+	onMount(() => {
+		encoder.set(new Encoder(trackElement));
+		window.addEventListener('resize', () => {
+			encoder.set(new Encoder(trackElement));
+		});
+	});
+
+	const passesTracker = getContext<JammerPassTracker<RelativeCoordinate>>('passesTracker');
 	$: passes = passesTracker.passes;
+	$: decodedPasses = $passes.map((pass) => [pass, $encoder?.decode(pass)] as const);
+
 	const clickHandler = (e: MouseEvent) => {
-		passesTracker.addPass({ x: e.clientX, y: e.clientY });
+		if (!$encoder) {
+			return;
+		}
+		passesTracker.addPass($encoder.encode({ x: e.clientX, y: e.clientY } as Coordinate));
 	};
-	const handleDelete = (coord: Coordinate) => () => {
+	const handleDelete = (coord: RelativeCoordinate) => () => {
 		passesTracker.removePass(coord);
 	};
 </script>
 
-<Track on:click={clickHandler} />
+<Track bind:trackElement on:click={clickHandler} />
 
-{#each $passes as pass}
-	<div
-		class="pass"
-		style="
+{#each decodedPasses as [pass, coord]}
+	{#if coord}
+		<div
+			class="pass"
+			style="
 			--pass-radius:5px;
-			left:{pass.x}px;
-			top:{pass.y}px;
+			left:{coord.x}px;
+			top:{coord.y}px;
 		"
-		on:click={handleDelete(pass)}
-	/>
+			on:click={handleDelete(pass)}
+		/>
+	{/if}
 {/each}
 
 <style>

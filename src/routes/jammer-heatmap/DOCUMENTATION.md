@@ -8,8 +8,10 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 - [x] Restaurer la session précédente
 - [x] Supprimer un point ajouté
 - [x] Effacer tous les points
-- [ ] Gérer la réactivité de l'image
+- [x] Gérer la réactivité de l'image
 - [ ] Exporter sous format image
 - [ ] Sélectionner un.e jammeur.se
 - [ ] Filtrer les points par jammeur.se
 - [ ] Enregistrer/restaurer une session
+- [ ] Ajouter une visualisation sous forme de heatmap
+- [ ] Restreindre les passages à l'intérieur du track

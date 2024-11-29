@@ -1,13 +1,8 @@
 import { get, writable } from 'svelte/store';
 import { type Store } from './store';
 
-export type Coordinate = {
-	x: number;
-	y: number;
-};
-
-export class JammerPassTracker {
-	#passes = writable<Coordinate[]>([]);
+export class JammerPassTracker<C> {
+	#passes = writable<C[]>([]);
 	get passes() {
 		return this.#passes;
 	}
@@ -27,7 +22,7 @@ export class JammerPassTracker {
 		});
 	}
 
-	#updateStoreSyncing(store: Store<Coordinate[]>) {
+	#updateStoreSyncing(store: Store<C[]>) {
 		if (this.#unsubscribeStore) {
 			this.#unsubscribeStore();
 			this.#unsubscribeStore = undefined;
@@ -41,7 +36,7 @@ export class JammerPassTracker {
 		});
 	}
 
-	async restore(store: Store<Coordinate[]>) {
+	async restore(store: Store<C[]>) {
 		const storedValue = await store.restore();
 		if (storedValue) {
 			this.#passes.update((prev) => [...storedValue, ...prev]);
@@ -49,7 +44,7 @@ export class JammerPassTracker {
 		this.#updateStoreSyncing(store);
 	}
 
-	addPass(coord: Coordinate) {
+	addPass(coord: C) {
 		if (get(this.#isDeleteModeOn)) {
 			return;
 		}
@@ -60,7 +55,7 @@ export class JammerPassTracker {
 		this.#passes.update((prev) => prev.slice(0, -1));
 	}
 
-	removePass(coord: Coordinate) {
+	removePass(coord: C) {
 		this.#passes.update((prev) => prev.filter((item) => item !== coord));
 	}
 
