@@ -31,6 +31,9 @@
 	"type": "module",
 	"dependencies": {
 		"@notionhq/client": "^2.2.15",
-		"@sveltejs/adapter-vercel": "^5.4.5"
+		"@sveltejs/adapter-vercel": "^5.4.5",
+		"i": "^0.3.7",
+		"npm": "^10.9.1",
+		"save-svg-as-png": "^1.4.17"
 	}
 }

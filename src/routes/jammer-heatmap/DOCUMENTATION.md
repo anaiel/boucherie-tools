@@ -9,7 +9,8 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 - [x] Supprimer un point ajouté
 - [x] Effacer tous les points
 - [x] Gérer la réactivité de l'image
-- [ ] Exporter sous format image
+- [x] Exporter sous format image
+- [ ] Sauvegarder sous format natif
 - [ ] Sélectionner un.e jammeur.se
 - [ ] Filtrer les points par jammeur.se
 - [ ] Enregistrer/restaurer une session
