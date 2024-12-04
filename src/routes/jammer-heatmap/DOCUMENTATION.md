@@ -11,7 +11,7 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 - [x] Gérer la réactivité de l'image
 - [x] Exporter sous format image
 - [x] Sauvegarder sous format natif
-- [ ] Restaurer depuis une archive au format natif
+- [x] Restaurer depuis une archive au format natif
 - [ ] Sélectionner un.e jammeur.se
 - [ ] Filtrer les points par jammeur.se
 - [ ] Enregistrer/restaurer une session

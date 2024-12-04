@@ -1,8 +1,8 @@
-import { get, writable } from 'svelte/store';
+import { get, writable, type Writable } from 'svelte/store';
 import { type Store } from './store';
 
 export class JammerPassTracker<C> {
-	#passes = writable<C[]>([]);
+	#passes: Writable<C[]>;
 	get passes() {
 		return this.#passes;
 	}
@@ -14,7 +14,8 @@ export class JammerPassTracker<C> {
 		return this.#isDeleteModeOn;
 	}
 
-	constructor() {
+	constructor(opts?: { initialPasses?: C[] }) {
+		this.#passes = writable(opts?.initialPasses ?? []);
 		this.#passes.subscribe((passes) => {
 			if (passes.length === 0) {
 				this.#isDeleteModeOn.set(false);
@@ -65,5 +66,9 @@ export class JammerPassTracker<C> {
 
 	toggleDeleteMode() {
 		this.#isDeleteModeOn.update((prev) => !prev);
+	}
+
+	override(passes: C[]) {
+		this.#passes.set(passes);
 	}
 }
