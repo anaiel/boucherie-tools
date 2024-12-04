@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import { JammerPassTracker } from '../_utilities/jammer-passes-tracker';
-	import type { RelativeCoordinate } from '../_utilities/types';
+	import { MetaSetupSchema, PassSchema } from '../_utilities/types';
 	import save from 'save-svg-as-png';
 	import { get } from 'svelte/store';
 	import type { ChangeEventHandler } from 'svelte/elements';
-	import { validator } from '../_utilities/validator';
+	import { produce } from 'immer';
+	import { array, assert, is, object } from 'superstruct';
+	import { metaContext, passesTrackerContext } from '../_utilities/contexts';
 
-	const passesTracker = getContext<JammerPassTracker<RelativeCoordinate>>('passesTracker');
+	const meta = metaContext.get();
+	const passesTracker = passesTrackerContext.get();
 	$: passes = passesTracker.passes;
 	$: disabled = $passes.length === 0;
 	$: isDeleteModeOn = passesTracker.isDeleteModeOn;
@@ -20,9 +21,11 @@
 	const handleDownload = () => {
 		var a = window.document.createElement('a');
 		a.href = window.URL.createObjectURL(
-			new Blob([JSON.stringify(get(passesTracker.passes))], { type: 'text/csv' })
+			new Blob([JSON.stringify({ passes: get(passesTracker.passes), setup: get(meta).setup })], {
+				type: 'text/csv'
+			})
 		);
-		a.download = 'passes.jmrhtmp';
+		a.download = 'session.jmrhtmp';
 		document.body.appendChild(a);
 		a.click();
 		setTimeout(() => {
@@ -47,8 +50,16 @@
 			}
 			try {
 				const data = JSON.parse(reader.result);
-				validator(data);
-				passesTracker.override(data);
+				if (is(data, object({ passes: array(PassSchema), setup: MetaSetupSchema }))) {
+					passesTracker.override(data.passes);
+					meta.update(
+						produce((draft) => {
+							draft.setup = data.setup;
+						})
+					);
+				} else {
+					assert(data, object({ passes: array(PassSchema), setup: MetaSetupSchema }));
+				}
 			} catch (err) {
 				handleError();
 			}

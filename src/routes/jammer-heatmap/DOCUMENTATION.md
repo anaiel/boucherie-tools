@@ -12,8 +12,8 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 - [x] Exporter sous format image
 - [x] Sauvegarder sous format natif
 - [x] Restaurer depuis une archive au format natif
-- [ ] Sélectionner un.e jammeur.se
+- [x] Sélectionner un.e jammeur.se
 - [ ] Filtrer les points par jammeur.se
-- [ ] Enregistrer/restaurer une session
 - [ ] Ajouter une visualisation sous forme de heatmap
 - [ ] Restreindre les passages à l'intérieur du track
+- [ ] Selectionner des passages pour les assigner à un.e jammer/un.e team

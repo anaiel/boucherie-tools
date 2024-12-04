@@ -1,13 +1,11 @@
 import { get, writable, type Writable } from 'svelte/store';
-import { type Store } from './store';
+import type { MetaSetup, Pass } from './types';
 
 export class JammerPassTracker<C> {
 	#passes: Writable<C[]>;
 	get passes() {
 		return this.#passes;
 	}
-
-	#unsubscribeStore: (() => void) | undefined = undefined;
 
 	#isDeleteModeOn = writable(false);
 	get isDeleteModeOn() {
@@ -21,28 +19,6 @@ export class JammerPassTracker<C> {
 				this.#isDeleteModeOn.set(false);
 			}
 		});
-	}
-
-	#updateStoreSyncing(store: Store<C[]>) {
-		if (this.#unsubscribeStore) {
-			this.#unsubscribeStore();
-			this.#unsubscribeStore = undefined;
-		}
-		this.#unsubscribeStore = this.#passes.subscribe((passes) => {
-			if (passes.length === 0) {
-				store.clear();
-			} else {
-				store.save(passes);
-			}
-		});
-	}
-
-	async restore(store: Store<C[]>) {
-		const storedValue = await store.restore();
-		if (storedValue) {
-			this.#passes.update((prev) => [...storedValue, ...prev]);
-		}
-		this.#updateStoreSyncing(store);
 	}
 
 	addPass(coord: C) {
@@ -72,3 +48,16 @@ export class JammerPassTracker<C> {
 		this.#passes.set(passes);
 	}
 }
+
+export const getPassColor = (pass: Pass, setup: MetaSetup | undefined): string | undefined => {
+	const teamId =
+		pass.meta?.teamId ??
+		setup?.jammers?.find((jammer) => jammer.id === pass.meta?.jammerId)?.teamId;
+	if (teamId) {
+		const team = setup?.teams?.find((team) => team.id === teamId);
+		if (team) {
+			return team.color;
+		}
+	}
+	return undefined;
+};

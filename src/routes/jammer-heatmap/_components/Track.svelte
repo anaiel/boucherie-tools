@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { SVG_OFFSET } from '../_utilities/const';
 
-	export let trackElement: HTMLImageElement;
+	export let trackElement: SVGSVGElement;
 </script>
 
 <svg

@@ -7,7 +7,7 @@ import type { Coordinate, RelativeCoordinate } from './types';
  */
 export class Encoder {
 	#rect: DOMRect;
-	constructor(entry: HTMLImageElement) {
+	constructor(entry: SVGSVGElement) {
 		this.#rect = entry.getBoundingClientRect();
 	}
 	encode(coord: Coordinate): RelativeCoordinate {

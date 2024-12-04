@@ -1,10 +1,15 @@
+type StoreOptions<T> = { validator: (data: any) => data is T };
+
 export abstract class Store<T> {
 	#storeId: string;
-	constructor(storeId: string) {
-		this.#storeId = storeId;
-	}
 	get storeId() {
 		return this.#storeId;
+	}
+	opts: Partial<StoreOptions<T>>;
+
+	constructor(storeId: string, opts?: Partial<StoreOptions<T>>) {
+		this.#storeId = storeId;
+		this.opts = opts ?? {};
 	}
 
 	abstract restore(): Promise<T | null>;
@@ -13,13 +18,20 @@ export abstract class Store<T> {
 }
 
 export class LocalStorageStore<T> extends Store<T> {
-	constructor(storeId: string) {
-		super(storeId);
+	constructor(storeId: string, opts?: Partial<StoreOptions<T>>) {
+		super(storeId, opts);
 	}
 
 	restore() {
 		const value = localStorage.getItem(this.storeId);
-		return Promise.resolve(value ? JSON.parse(value) : null);
+		if (!value) {
+			return Promise.resolve(null);
+		}
+		const parsedValue = JSON.parse(value);
+		if (this.opts.validator) {
+			this.opts.validator(parsedValue);
+		}
+		return Promise.resolve(parsedValue);
 	}
 
 	save(item: T) {
