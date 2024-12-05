@@ -1,4 +1,4 @@
-<header><a href="/">⌂</a> Outils Boucherie</header>
+<header><a href="/">⌂</a> Outils derby</header>
 
 <main><slot></slot></main>
 
