@@ -1,6 +1,6 @@
 import { EXERCISES_DB_ID } from '$env/static/private';
-import notion from '$lib/training-formatter/notion-client';
-import { formatResultsForSelect } from '$lib/training-formatter/trainings';
+import notion from './_utilities/notion-client';
+import { formatResultsForSelect } from './_utilities/trainings';
 
 export async function load() {
 	const trainingsPromise = notion.databases.query({

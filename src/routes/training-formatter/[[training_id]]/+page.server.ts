@@ -1,10 +1,10 @@
-import { formatTraining } from '$lib/training-formatter/format';
-import notion from '$lib/training-formatter/notion-client';
 import type {
 	ListBlockChildrenResponse,
 	QueryDatabaseResponse
 } from '@notionhq/client/build/src/api-endpoints.js';
 import { redirect } from '@sveltejs/kit';
+import { formatTraining } from '../_utilities/format';
+import notion from '../_utilities/notion-client';
 
 export async function load({ params, parent }) {
 	const trainingId = params.training_id;
