@@ -1,64 +1,38 @@
 <script>
-	import { goto } from '$app/navigation';
-
-	export let data;
-	const { trainingsForSelectPromise } = data;
+	import '../app.css';
 </script>
 
-<header>Boucherie - Autocoaching A</header>
-<main>
-	<h1>Formatter l'entrainement pour Discord</h1>
-	<p class="description">
-		Cet outil permet de formatter facilement un entrainement préparé sur Notion pour le coller sur
-		Discord.
-	</p>
+<header class="bg-primary"><a href="/">⌂</a> Outils derby</header>
 
-	{#await trainingsForSelectPromise}
-		Chargement des entrainements
-	{:then trainings}
-		<label for="select">Choisir l'entrainement :</label>
-		<select
-			id="select"
-			on:change={(e) => {
-				const trainingId = e.currentTarget.value;
-				if (trainingId) {
-					goto(`${trainingId}`);
-				}
-			}}
-		>
-			{#each trainings as { name, id }}
-				<option value={id}>{name}</option>
-			{/each}
-		</select>
-
-		<slot></slot>
-	{:catch}
-		<p>Une erreur est survenue</p>
-	{/await}
-</main>
+<main><slot></slot></main>
 
 <style>
 	header {
-		background-color: #0bae8c;
-		padding: 16px 8px;
+		padding-inline-start: 0.5rem;
+		padding-block: 0;
+		margin-bottom: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 		color: white;
-		font-size: 1.5rem;
-		margin-bottom: 32px;
+		font-size: 1rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		line-height: 0.75;
+		letter-spacing: 8px;
 	}
 
-	main {
-		margin-inline: auto;
-		max-width: 1000px;
-		padding-inline: 16px;
-	}
+	header a {
+		text-decoration: none;
+		color: inherit;
 
-	h1 {
-		font-size: 1.25rem;
-		border-bottom: 2px solid #0bae8c;
-		margin-bottom: 16px;
+		/* Optical alignment */
+		position: relative;
+		top: -2px;
 	}
-
-	.description {
-		margin-bottom: 32px;
+	header a:hover,
+	header a:focus-visible {
+		color: #dc0843;
+		text-decoration: underline;
 	}
 </style>

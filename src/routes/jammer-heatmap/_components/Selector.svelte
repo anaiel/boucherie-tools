@@ -1,0 +1,94 @@
+<script lang="ts">
+	import { produce } from 'immer';
+	import { metaContext } from '../_utilities/contexts';
+	import SelectorInfo from './SelectorInfo.svelte';
+
+	const meta = metaContext.get();
+
+	const handleSelectJammer = (id: string | undefined) => () => {
+		meta.update(
+			produce((draft) => {
+				if (draft.selectedJammerId === id) {
+					draft.selectedJammerId = undefined;
+				} else {
+					draft.selectedJammerId = id;
+				}
+
+				if (id) {
+					const jammer = draft.setup?.jammers?.find((jammer) => jammer.id === id);
+					if (jammer?.teamId) {
+						draft.selectedTeamId = jammer.teamId;
+					} else {
+						draft.selectedTeamId = undefined;
+					}
+				}
+			})
+		);
+	};
+
+	const handleSelectTeam = (id: string) => () => {
+		meta.update(
+			produce((draft) => {
+				if (draft.selectedTeamId === id) {
+					draft.selectedTeamId = undefined;
+				} else {
+					draft.selectedTeamId = id;
+				}
+				draft.selectedJammerId = undefined;
+			})
+		);
+	};
+</script>
+
+{#if $meta.setup}
+	<div class="card">
+		<div class="card-body">
+			{#if $meta.setup?.jammers && $meta.setup.jammers.length > 0}
+				Choisir un·e jammer :
+				<ul class="flex gap-1">
+					{#each $meta.setup.jammers as jammer}
+						<li class={$meta.selectedJammerId === jammer.id ? 'selected' : undefined}>
+							<button
+								class="btn btn-xs btn-primary btn-outline"
+								on:click={handleSelectJammer(jammer.id)}>{jammer.name}</button
+							>
+						</li>
+					{/each}
+					<li
+						class={$meta.selectedJammerId === undefined && $meta.selectedTeamId
+							? 'selected'
+							: undefined}
+					>
+						<button
+							class="btn btn-primary btn-xs btn-outline"
+							on:click={handleSelectJammer(undefined)}
+							disabled={$meta.selectedJammerId === undefined}>Autre</button
+						>
+					</li>
+				</ul>
+			{/if}
+
+			{#if $meta.setup?.teams && $meta.setup.teams.length > 0}
+				Choisir une équipe :
+				<ul>
+					{#each $meta.setup.teams as team}
+						<li class={$meta.selectedTeamId === team.id ? 'selected' : undefined}>
+							<button
+								class="btn btn-xs btn-outline btn-secondary"
+								on:click={handleSelectTeam(team.id)}>{team.name}</button
+							>
+						</li>
+					{/each}
+				</ul>
+			{/if}
+		</div>
+	</div>
+{:else}
+	<SelectorInfo />
+{/if}
+
+<style>
+	.selected {
+		filter: invert();
+	}
+</style>

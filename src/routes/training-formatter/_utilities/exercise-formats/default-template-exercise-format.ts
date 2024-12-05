@@ -2,8 +2,8 @@ import type {
 	ListBlockChildrenResponse,
 	PageObjectResponse
 } from '@notionhq/client/build/src/api-endpoints';
-import notion from '$lib/notion-client';
 import type { Exercise } from './exercise';
+import notion from '../notion-client';
 
 export async function parseDefaultExerciseTemplate(
 	trainingContent: ListBlockChildrenResponse

@@ -1,17 +1,17 @@
-import { formatTraining } from '$lib/format';
-import notion from '$lib/notion-client';
 import type {
 	ListBlockChildrenResponse,
 	QueryDatabaseResponse
 } from '@notionhq/client/build/src/api-endpoints.js';
 import { redirect } from '@sveltejs/kit';
+import { formatTraining } from '../_utilities/format';
+import notion from '../_utilities/notion-client';
 
 export async function load({ params, parent }) {
 	const trainingId = params.training_id;
 	const { trainingsPromise, trainingsForSelectPromise } = await parent();
 	if (!trainingId) {
 		const trainingsForSelect = await trainingsForSelectPromise;
-		redirect(307, `/${trainingsForSelect[0].id}`);
+		redirect(307, `training-formatter/${trainingsForSelect[0].id}`);
 	}
 	return {
 		formattedTrainingPromise: trainingsPromise.then(async (trainings) => {
