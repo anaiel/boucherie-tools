@@ -9,6 +9,7 @@
 	{:then training}
 		<pre><code>{training}</code></pre>
 		<button
+			class="btn"
 			on:click={function handleCopy() {
 				navigator.clipboard.writeText(training);
 			}}>Copier</button

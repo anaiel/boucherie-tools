@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { produce } from 'immer';
-	import { generateRandomColor } from '$lib/colors';
-	import { metaContext } from '../_utilities/contexts';
+	import { generateRandomColor } from '$lib/utilities/colors';
+	import { metaContext } from '../../_utilities/contexts';
 
 	const meta = metaContext.get();
 
@@ -21,14 +21,16 @@
 </script>
 
 {#if $meta.setup && $meta.setup.teams}
-	<p>Équipes :</p>
-	<ul>
-		{#each $meta.setup.teams as team}
-			<li class="team" style={`--team-color:${team.color};`}>{team.name}</li>
-		{/each}
-	</ul>
+	<div>
+		<p>Équipes :</p>
+		<ul>
+			{#each $meta.setup.teams as team}
+				<li class="team" style={`--team-color:${team.color};`}>{team.name}</li>
+			{/each}
+		</ul>
+	</div>
 {:else}
-	<button on:click={handleActivateTeams}>Séparer par équipe</button>
+	<button class="btn btn-secondary" on:click={handleActivateTeams}>Ajouter des équipes</button>
 {/if}
 
 <style>

@@ -37,8 +37,10 @@
 	};
 </script>
 
-<Track bind:trackElement on:click={clickHandler}>
-	{#each $passes as pass}
-		<Pass {pass} on:click={handleDelete(pass)} />
-	{/each}
-</Track>
+<div>
+	<Track bind:trackElement on:click={clickHandler}>
+		{#each $passes as pass}
+			<Pass {pass} on:click={handleDelete(pass)} />
+		{/each}
+	</Track>
+</div>
