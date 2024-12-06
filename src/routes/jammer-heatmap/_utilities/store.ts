@@ -12,7 +12,7 @@ export abstract class Store<T> {
 		this.opts = opts ?? {};
 	}
 
-	abstract restore(): Promise<T | null>;
+	abstract restore(): Promise<T | undefined>;
 	abstract save(item: T): Promise<boolean>;
 	abstract clear(): Promise<boolean>;
 }
@@ -25,7 +25,7 @@ export class LocalStorageStore<T> extends Store<T> {
 	restore() {
 		const value = localStorage.getItem(this.storeId);
 		if (!value) {
-			return Promise.resolve(null);
+			return Promise.resolve(undefined);
 		}
 		const parsedValue = JSON.parse(value);
 		if (this.opts.validator) {
