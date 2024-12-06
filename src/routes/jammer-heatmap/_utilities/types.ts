@@ -53,6 +53,7 @@ export type Meta = Partial<{
 	setup: MetaSetup;
 	selectedJammerId: string;
 	selectedTeamId: string;
+	filters: Filters;
 }>;
 export type MetaSetup = Partial<{
 	jammers: Jammer[];
@@ -62,6 +63,10 @@ export const MetaSetupSchema: Describe<MetaSetup> = object({
 	jammers: optional(array(JammerSchema)),
 	teams: optional(array(TeamSchema))
 });
+export type Filters = {
+	jammers?: string[];
+	teams?: string[];
+};
 
 export type Save = {
 	passes: Pass[];

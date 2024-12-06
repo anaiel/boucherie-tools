@@ -13,7 +13,7 @@ Permet d'obtenir une image des endroits du track où les jammeur.ses réussissen
 - [x] Sauvegarder sous format natif
 - [x] Restaurer depuis une archive au format natif
 - [x] Sélectionner un.e jammeur.se
-- [ ] Filtrer les points par jammeur.se
+- [x] Filtrer les points par jammeur.se
 - [ ] Ajouter une visualisation sous forme de heatmap
 - [ ] Restreindre les passages à l'intérieur du track
 - [ ] Selectionner des passages pour les assigner à un.e jammer/un.e team
