@@ -16,10 +16,4 @@ export class Encoder {
 			y: (coord.y - this.#rect.top) / this.#rect.height
 		} as RelativeCoordinate;
 	}
-	decode(coord: RelativeCoordinate): Coordinate {
-		return {
-			x: coord.x * this.#rect.width + this.#rect.left,
-			y: coord.y * this.#rect.height + this.#rect.top
-		} as Coordinate;
-	}
 }
