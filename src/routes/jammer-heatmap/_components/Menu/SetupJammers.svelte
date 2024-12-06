@@ -41,7 +41,7 @@
 				}
 				draft.setup.jammers.push({
 					id: nanoid(),
-					name: jammerName ?? PLACEHOLDER_NAME,
+					name: jammerName || PLACEHOLDER_NAME,
 					teamId: jammerTeam
 				});
 			})
@@ -63,6 +63,8 @@
 					</li>
 				{/each}
 			</ol>
+		{:else}
+			<p>Aucun.e jammer ajouté.e</p>
 		{/if}
 		{#if addingJammer}
 			<label class="input input-bordered flex items-center gap-2">
