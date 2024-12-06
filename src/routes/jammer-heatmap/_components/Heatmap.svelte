@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Track from './Track.svelte';
-	import type { RelativeCoordinate, Pass as IPass } from '../_utilities/types';
+	import type { RelativeCoordinate, Pass as IPass, Filters } from '../_utilities/types';
 	import { Encoder } from '../_utilities/encoder';
 	import { get, writable } from 'svelte/store';
 	import Pass from './Pass.svelte';
@@ -17,6 +17,7 @@
 		const container = document.getElementById('container');
 		if (container) {
 			const mutationObserver = new MutationObserver((mutationList) => {
+				console.log({ mutationList });
 				for (const mutation of mutationList) {
 					if (mutation.type === 'childList') {
 						encoder.set(new Encoder(trackElement));
@@ -28,9 +29,26 @@
 	});
 
 	const passesTracker = passesTrackerContext.get();
-	$: passes = passesTracker.passes;
-
 	const meta = metaContext.get();
+
+	let passes = writable<IPass[]>([]);
+	const filterPasses = (filters: Filters) => (pass: IPass) => {
+		if (filters.jammers && filters.jammers.length > 0) {
+			return filters.jammers.includes(pass.meta?.jammerId ?? '');
+		} else if (filters.teams && filters.teams.length > 0) {
+			return filters.teams.includes(pass.meta?.teamId ?? '');
+		} else {
+			return true;
+		}
+	};
+	passesTracker.passes.subscribe((value) => {
+		const filters = get(meta).filters;
+		passes.set(filters ? value.filter(filterPasses(filters)) : value);
+	});
+	meta.subscribe((value) => {
+		const passesValue = get(passesTracker.passes);
+		passes.set(value.filters ? passesValue.filter(filterPasses(value.filters)) : passesValue);
+	});
 
 	const clickHandler = (e: MouseEvent) => {
 		if (!$encoder) {
