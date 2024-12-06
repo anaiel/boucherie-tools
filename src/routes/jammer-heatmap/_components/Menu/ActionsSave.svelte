@@ -6,6 +6,7 @@
 	import type { ChangeEventHandler } from 'svelte/elements';
 	import { produce } from 'immer';
 	import { array, assert, is, object } from 'superstruct';
+	import FileSaver from 'file-saver';
 
 	const meta = metaContext.get();
 	const passesTracker = passesTrackerContext.get();
@@ -53,20 +54,11 @@
 	};
 
 	const handleDownload = () => {
-		var a = window.document.createElement('a');
 		const save: Save = { passes: get(passesTracker.passes), setup: get(meta).setup };
-		console.log({ save, meta: get(meta) });
-		a.href = window.URL.createObjectURL(
-			new Blob([JSON.stringify(save)], {
-				type: 'text/csv'
-			})
-		);
-		a.download = 'session.jmrhtmp';
-		document.body.appendChild(a);
-		a.click();
-		setTimeout(() => {
-			document.body.removeChild(a);
-		}, 0);
+		const blob = new Blob([JSON.stringify(save)], {
+			type: 'text/plain;charset=utf-8'
+		});
+		FileSaver.saveAs(blob, 'heatmap.txt');
 	};
 </script>
 
