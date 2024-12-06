@@ -14,6 +14,17 @@
 		window.addEventListener('resize', () => {
 			encoder.set(new Encoder(trackElement));
 		});
+		const container = document.getElementById('container');
+		if (container) {
+			const mutationObserver = new MutationObserver((mutationList) => {
+				for (const mutation of mutationList) {
+					if (mutation.type === 'childList') {
+						encoder.set(new Encoder(trackElement));
+					}
+				}
+			});
+			mutationObserver.observe(container, { childList: true });
+		}
 	});
 
 	const passesTracker = passesTrackerContext.get();
