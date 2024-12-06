@@ -41,7 +41,7 @@
 </script>
 
 {#if $meta.setup}
-	<div class="card">
+	<div class="card ms-2">
 		<div class="card-body">
 			{#if $meta.setup?.jammers && $meta.setup.jammers.length > 0}
 				Choisir un·e jammer :
@@ -49,7 +49,7 @@
 					{#each $meta.setup.jammers as jammer}
 						<li class={$meta.selectedJammerId === jammer.id ? 'selected' : undefined}>
 							<button
-								class="btn btn-xs btn-primary btn-outline"
+								class="btn btn-outline btn-primary btn-xs"
 								on:click={handleSelectJammer(jammer.id)}>{jammer.name}</button
 							>
 						</li>
@@ -60,7 +60,7 @@
 							: undefined}
 					>
 						<button
-							class="btn btn-primary btn-xs btn-outline"
+							class="btn btn-outline btn-primary btn-xs"
 							on:click={handleSelectJammer(undefined)}
 							disabled={$meta.selectedJammerId === undefined}>Autre</button
 						>
@@ -74,7 +74,7 @@
 					{#each $meta.setup.teams as team}
 						<li class={$meta.selectedTeamId === team.id ? 'selected' : undefined}>
 							<button
-								class="btn btn-xs btn-outline btn-secondary"
+								class="btn btn-outline btn-secondary btn-xs"
 								on:click={handleSelectTeam(team.id)}>{team.name}</button
 							>
 						</li>
