@@ -8,25 +8,6 @@
 	import { metaContext, passesTrackerContext } from '../_utilities/contexts';
 
 	let trackElement: SVGSVGElement;
-	let encoder = writable<Encoder | undefined>(undefined);
-	onMount(() => {
-		encoder.set(new Encoder(trackElement));
-		window.addEventListener('resize', () => {
-			encoder.set(new Encoder(trackElement));
-		});
-		const container = document.getElementById('container');
-		if (container) {
-			const mutationObserver = new MutationObserver((mutationList) => {
-				console.log({ mutationList });
-				for (const mutation of mutationList) {
-					if (mutation.type === 'childList') {
-						encoder.set(new Encoder(trackElement));
-					}
-				}
-			});
-			mutationObserver.observe(container, { childList: true });
-		}
-	});
 
 	const passesTracker = passesTrackerContext.get();
 	const meta = metaContext.get();
@@ -51,10 +32,11 @@
 	});
 
 	const clickHandler = (e: MouseEvent) => {
-		if (!$encoder) {
+		if (!trackElement) {
 			return;
 		}
-		const pass: IPass = $encoder.encode({ x: e.pageX, y: e.pageY });
+		const encoder = new Encoder(trackElement);
+		const pass: IPass = encoder.encode({ x: e.pageX, y: e.pageY });
 		const metaValue = get(meta);
 		if (metaValue.selectedJammerId || metaValue.selectedTeamId) {
 			pass.meta = { jammerId: metaValue.selectedJammerId, teamId: metaValue.selectedTeamId };
