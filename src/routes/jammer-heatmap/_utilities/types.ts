@@ -62,3 +62,12 @@ export const MetaSetupSchema: Describe<MetaSetup> = object({
 	jammers: optional(array(JammerSchema)),
 	teams: optional(array(TeamSchema))
 });
+
+export type Save = {
+	passes: Pass[];
+	setup?: MetaSetup;
+};
+export const SaveSchema = object({
+	passes: array(PassSchema),
+	setup: optional(MetaSetupSchema)
+});

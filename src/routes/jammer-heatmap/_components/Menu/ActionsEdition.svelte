@@ -8,7 +8,7 @@
 </script>
 
 <div>
-	Edition :
+	Passages :
 	<ul class="flex flex-col gap-1">
 		<li>
 			<button class="btn btn-primary" on:click={() => passesTracker.removeLastPass()} {disabled}

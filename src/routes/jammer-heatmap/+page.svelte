@@ -21,7 +21,7 @@
 
 <div class="sidebar-layout" style="--sidebar-width:calc(var(--measure) / 3);">
 	<Selector />
-	<div>
+	<div class="me-2">
 		<Heatmap />
 		<Menu />
 	</div>

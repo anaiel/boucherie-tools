@@ -2,7 +2,7 @@
 	import save from 'save-svg-as-png';
 	import { get } from 'svelte/store';
 	import { metaContext, passesTrackerContext } from '../../_utilities/contexts';
-	import { MetaSetupSchema, PassSchema } from '../../_utilities/types';
+	import { MetaSetupSchema, PassSchema, SaveSchema, type Save } from '../../_utilities/types';
 	import type { ChangeEventHandler } from 'svelte/elements';
 	import { produce } from 'immer';
 	import { array, assert, is, object } from 'superstruct';
@@ -11,8 +11,11 @@
 	const passesTracker = passesTrackerContext.get();
 
 	const handleUploadFile: ChangeEventHandler<HTMLInputElement> = async (e) => {
-		const handleError = () => {
+		const handleError = (err?: unknown) => {
 			window.alert('Impossible de restaurer à partir du fichier fourni');
+			if (err) {
+				console.error(err);
+			}
 		};
 		if (!e.target || !('files' in e.target) || !(e.target.files instanceof FileList)) {
 			handleError();
@@ -27,7 +30,7 @@
 			}
 			try {
 				const data = JSON.parse(reader.result);
-				if (is(data, object({ passes: array(PassSchema), setup: MetaSetupSchema }))) {
+				if (is(data, SaveSchema)) {
 					passesTracker.override(data.passes);
 					meta.update(
 						produce((draft) => {
@@ -38,7 +41,7 @@
 					assert(data, object({ passes: array(PassSchema), setup: MetaSetupSchema }));
 				}
 			} catch (err) {
-				handleError();
+				handleError(err);
 			}
 		};
 		reader.readAsText(e.target.files[0]);
@@ -51,8 +54,10 @@
 
 	const handleDownload = () => {
 		var a = window.document.createElement('a');
+		const save: Save = { passes: get(passesTracker.passes), setup: get(meta).setup };
+		console.log({ save, meta: get(meta) });
 		a.href = window.URL.createObjectURL(
-			new Blob([JSON.stringify({ passes: get(passesTracker.passes), setup: get(meta).setup })], {
+			new Blob([JSON.stringify(save)], {
 				type: 'text/csv'
 			})
 		);
@@ -73,7 +78,7 @@
 				<div tabindex="0" role="button" class="btn btn-accent m-1">Enregistrer...</div>
 				<ul
 					tabindex="0"
-					class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+					class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
 				>
 					<li><a role="button" tabindex="0" on:click={handleSave}>... au format png</a></li>
 					<li>
@@ -89,7 +94,7 @@
 				</div>
 				<input
 					type="file"
-					class="file-input file-input-accent file-input-bordered w-full max-w-xs"
+					class="file-input file-input-bordered file-input-accent w-full max-w-xs"
 					on:change={handleUploadFile}
 				/>
 			</label>

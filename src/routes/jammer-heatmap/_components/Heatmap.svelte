@@ -37,7 +37,7 @@
 	};
 </script>
 
-<div>
+<div class="mx-auto max-w-screen-md">
 	<Track bind:trackElement on:click={clickHandler}>
 		{#each $passes as pass}
 			<Pass {pass} on:click={handleDelete(pass)} />

@@ -41,26 +41,24 @@
 </script>
 
 {#if $meta.setup}
-	<div class="card">
+	<div class="card ms-2">
 		<div class="card-body">
 			{#if $meta.setup?.jammers && $meta.setup.jammers.length > 0}
 				Choisir un·e jammer :
 				<ul class="flex gap-1">
 					{#each $meta.setup.jammers as jammer}
-						<li class={$meta.selectedJammerId === jammer.id ? 'selected' : undefined}>
+						<li>
 							<button
-								class="btn btn-xs btn-primary btn-outline"
+								class={`btn btn-outline btn-primary btn-xs ${$meta.selectedJammerId === jammer.id ? 'btn-active' : ''}`}
 								on:click={handleSelectJammer(jammer.id)}>{jammer.name}</button
 							>
 						</li>
 					{/each}
-					<li
-						class={$meta.selectedJammerId === undefined && $meta.selectedTeamId
-							? 'selected'
-							: undefined}
-					>
+					<li>
 						<button
-							class="btn btn-primary btn-xs btn-outline"
+							class={`btn btn-outline btn-primary btn-xs ${
+								$meta.selectedJammerId === undefined && $meta.selectedTeamId ? 'btn-active' : ''
+							}`}
 							on:click={handleSelectJammer(undefined)}
 							disabled={$meta.selectedJammerId === undefined}>Autre</button
 						>
@@ -72,9 +70,9 @@
 				Choisir une équipe :
 				<ul>
 					{#each $meta.setup.teams as team}
-						<li class={$meta.selectedTeamId === team.id ? 'selected' : undefined}>
+						<li>
 							<button
-								class="btn btn-xs btn-outline btn-secondary"
+								class={`btn btn-outline btn-secondary btn-xs ${$meta.selectedTeamId === team.id ? 'btn-active' : ''}`}
 								on:click={handleSelectTeam(team.id)}>{team.name}</button
 							>
 						</li>
@@ -86,9 +84,3 @@
 {:else}
 	<SelectorInfo />
 {/if}
-
-<style>
-	.selected {
-		filter: invert();
-	}
-</style>
